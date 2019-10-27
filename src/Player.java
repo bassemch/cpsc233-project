@@ -26,5 +26,6 @@ public class Player {
     	if(s.getKeyCode() == KeyEvent.VK_SPACE) {
     		//shoot();
     	}
+    	
     }
 }
