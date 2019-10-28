@@ -7,30 +7,48 @@ private int aYLen;
 private int yPosDeAndH;
 private ArrayList<Enemy> EnemyList = new ArrayList();
 private Player aPlayer;
-private ArrayList<Wall> BarList = new ArrayList();
+private ArrayList<Wall> WallList = new ArrayList();
 private ArrayList<Shot> ShotList = new ArrayList();
 
 private char EnemyMovingDirection = 'l'; // can be l,r,d
 private int EnemyMoveToSide = 10; 
 private char EnemyMoveBefore = 'l';
 private int PlayerMove = 10;
+private int safety = 50;
 
-Map(int aXLen, int aYLen, int yPosDeandHe, ArrayList<Enemy> aEnemyList,  Player aPlayer, ArrayList<Bar> bars, ArrayList<shot> shots){
+public Map(int aXLen, int aYLen, int yPosDeandHe, ArrayList<Enemy> aEnemyList,  Player aPlayer, ArrayList<Bar> bars, ArrayList<shot> shots){
 this.aXLen = aXlen;
 this.aYLen = aYlen;
 this.yPosDeandHe = yPosDeandHe;
 this.EnemyList = aEnemyList;
 this.aPlayer = aPlayer;
-this.BarList = bars;
+this.WallList = bars;
 this.ShotList = shots;
 
+public void checkOverlaps() {
+	for (Shot i : ShotList) {
+		for (Enemy j : EnemyList) {
+			if(i.intersects(j)) {
+				//remove Enemy j and Shot i, if Enemy j is hit by Shot i
+				EnemyList.remove(j);
+				ShotList.remove(i);
+			}
+		}
+		for (Wall j : WallList) {
+			if (i.intersects(j)) {
+				j.decreaseHealth(1);
+				ShotList.remove(i);
+			}
+		}
+	}
+}
 
 public void updatePos() {
 	//Enemies:
 	//check where Enemies need to move
 	
 	if (EnemyMovingDirection == 'r') {
-		if (this.getMostRightEnemy().getX() < aXLen - EnemyMoveToSide)
+		if (this.getMostRightEnemy().getX() < aXLen - EnemyMoveToSide - safety)
 			for (Enemy i : EnemyList){
 				i.move(EnemyMoveToSide, 0);
 			}else {
@@ -39,7 +57,7 @@ public void updatePos() {
 			}
 	}
 	if (EnemyMovingDirection == 'l') {
-		if (this.getMostLeftEnemy().getX() > EnemyMoveToSide)
+		if (this.getMostLeftEnemy().getX() > EnemyMoveToSide + safety)
 			for (Enemy i : EnemyList){
 				i.move(-EnemyMoveToSide, 0);
 			}else {
@@ -49,15 +67,15 @@ public void updatePos() {
 	}
 	if (EnemyMovingDirection == 'd') {
 		if (EnemyMoveBefore == 'r') {
-			//move to left
+			//move down and left next time
 			for (Enemy i : EnemyList){
-				i.move(-EnemyMoveToSide, 0);
+				i.move(0, EnemyMoveToSide);
 			}
 			EnemyMoveBefore = EnemyMovingDirection;
 			EnemyMovingDirection = 'l';
 		}else {
 			for (Enemy i : EnemyList){
-				i.move(EnemyMoveToSide, 0);
+				i.move(0, EnemyMoveToSide);
 			}
 			EnemyMoveBefore = EnemyMovingDirection;
 			EnemyMovingDirection = 'r';
@@ -67,8 +85,6 @@ public void updatePos() {
 	for (Shot i : ShotList) {
 		i.move(0, 10);
 	}
-//Player:
-	//if key was pressed move to right or left
 }
 public void updatePlayerPos(KeyEvent e) {
 	int command = e.getKeyCode();
@@ -122,8 +138,8 @@ return aPlayer;
 }
 
 
-private ArrayList<Bar> getBarList(){
-return BarList;
+private ArrayList<Wall> getBarList(){
+return WallList;
 }
 
 
