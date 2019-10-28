@@ -1,7 +1,7 @@
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-private class Map {
+public class Map {
 private int aXLen;
 private int aYLen;
 private int yPosDeAndH;
@@ -17,13 +17,14 @@ private int PlayerMove = 10;
 private int safety = 50;
 
 public Map(int aXLen, int aYLen, int yPosDeandHe, ArrayList<Enemy> aEnemyList,  Player aPlayer, ArrayList<Bar> bars, ArrayList<shot> shots){
-this.aXLen = aXlen;
-this.aYLen = aYlen;
-this.yPosDeandHe = yPosDeandHe;
+this.aXLen = aXLen;
+this.aYLen = aYLen;
+this.yPosDeAndH = yPosDeandHe;
 this.EnemyList = aEnemyList;
 this.aPlayer = aPlayer;
 this.WallList = bars;
 this.ShotList = shots;
+}
 
 public void checkOverlaps() {
 	for (Shot i : ShotList) {
