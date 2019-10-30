@@ -1,3 +1,4 @@
+import javafx.scene.shape.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -5,6 +6,10 @@ public class Player {
 	int health = 100;
 	int xPos = 50;
 	int yPos = 10;
+	
+	public void playerLook(int xPos, int yPos) {
+		
+	}
 	
     public void moveX(KeyEvent m, int xPos, int yPos) {
     	if(m.getKeyCode() == KeyEvent.VK_RIGHT) {
