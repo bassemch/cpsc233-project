@@ -14,4 +14,4 @@ make package SpaceInvadersGame
 import classes Player,Sprite,spaceinvadersgame,Enemy,Projectile
 Compile each class / java doc in the Classes folder.
 
-Run Main Class.
+Run spaceinvadersgame
