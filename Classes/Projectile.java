@@ -2,14 +2,14 @@ package SpaceInvadersGame;
 
 import javafx.scene.paint.Color;
 
-public class Player extends Sprite {
+public class Projectile extends Sprite {
 
-	Player(int x, int y, int w, int h, String type, Color color) {
+	Projectile(int x, int y, int w, int h, String type, Color color) {
 		super(x, y, w, h, type, color);
 	
 	}
 	
-	Player(Player toCopy){
+	Projectile(Projectile toCopy){
 		super(toCopy.xpos,toCopy.ypos, toCopy.width, toCopy.height, toCopy.type, toCopy.color);
 	}
 }
