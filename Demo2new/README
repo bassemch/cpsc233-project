@@ -1,0 +1,7 @@
+This code runs on Java 1.8
+How to start the program:
+1. Import all classes into one package of a project
+2. Run the 'Map' class
+3. The game starts
+
+Note: Exception handling will be implemented after we covered this section in class
