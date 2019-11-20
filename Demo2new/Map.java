@@ -53,13 +53,18 @@ public class Map extends Application {
 
         AnimationTimer timer = new AnimationTimer() {
             public void handle(long now) {
+            	try {
             	pause(50);
-            	updatePos();
+            	updateEnemyPos();
+            	updateShotPos();
             	checkOverlaps();
             	checkEnemyHeight();
             	checkShotHeight();
             	if(aPlayer.getHealth() <= 0) {
             		root.getChildren().add(gameOverLabel);
+            	}
+            	}catch (Exception e) {
+            		
             	}
             }
         };
@@ -73,7 +78,7 @@ public class Map extends Application {
     }
     
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) {
     	Scene scene = new Scene(createContent());
     	stage.setTitle("Space Invaders");
     	//scene.setFill(Color.BLACK);
@@ -116,10 +121,11 @@ public class Map extends Application {
     	}    	
     }
     //running game methods
-    public void updatePos() {
+    public void updateEnemyPos() {
     	//Enemies:
     	//check where Enemies need to move
-    	
+  
+    	try {
     	if (EnemyMovingDirection == 'r') {
     		if (this.getMostRightEnemy().getX() < gameWidth - EnemyMoveToSide - safety)
     			for (Enemy i : EnemyList){
@@ -154,9 +160,17 @@ public class Map extends Application {
     			EnemyMovingDirection = 'r';
     			}
     	}	
-    //Shots:
-    	for (Shot i : ShotList) {
-    		i.moveUp(10);
+    	}catch (Exception e) {
+    		
+    	}
+    }
+    public void updateShotPos() {
+    	try {
+    		for (Shot i : ShotList) {
+    			i.moveUp(10);
+    		}
+    	}catch(Exception e) {
+    		//System.out.println("No shots available");
     	}
     }
     
@@ -206,6 +220,7 @@ public class Map extends Application {
     	//spawn some walls related to the level
     }
     public Enemy getMostRightEnemy() {
+    	
     	Enemy e = EnemyList.get(0);
     	for (Enemy i : EnemyList) {
     		if (e.getX() < i.getX()) {
