@@ -1,56 +1,57 @@
 import java.util.ArrayList;
 
 public class Head {
-	private boolean screenOn = false;
-	private boolean mapOn = false;
-	private boolean scoresOn = false;
+	private static boolean screenOn = false;
+	private static boolean mapOn = false;
+	private static boolean scoresOn = false;
 	
-	private Startscreen screen;
-	private Highscores scoreBoard;
-	private Map level;
 	
 	private ArrayList<Integer> Scores = new ArrayList();
-	
-	public Head() {
-		screenOn = true;
-		
-		level = new Map(this); // only for now
-		//createPane();
-		// when a button is pressed we want to update which class is on and call createPane() again
+	private static String [] args1;
+//	public Head() {
+//		screenOn = true;
+//		
+//		//level = new Map(this); // only for now
+//		//createPane();
+//		// when a button is pressed we want to update which class is on and call createPane() again
+//	}
+	public static void main(String[] args) {
+		args1 = args;
+		Startscreen.main(args1);
 	}
-	
-	public void startGame() {
+	public static void startGame(int level) {
 		// should be invoked when button in Startscreen is pressed
 		// should lead to delete StartScreen and create Map
-		this.screenOn = false;
-		this.mapOn = true;
+		Head.screenOn = false;
+		Head.mapOn = true;
+		//Map.setLevel(level);
 		createPane();
 	}
-	public void startScores() {
+	public static void startScores() {
 		// should be invoked when button in Startscreen is pressed
 		// should lead to delete StartScreen and create Highsores
-		this.screenOn = false;
-		this.scoresOn = true;
+		Head.screenOn = false;
+		Head.scoresOn = true;
 		createPane();
 	}
-	public void startScreen() {
-		this.mapOn = false;
-		this.scoresOn = false;
-		this.screenOn = true;
+	public static void startScreen() {
+		Head.mapOn = false;
+		Head.scoresOn = false;
+		Head.screenOn = true;
 		createPane();
 	}
-	public void createPane() {
+	public static void createPane() {
 		// checks which class will be used and calls it
 		if (screenOn == true) {
 			//start Startscreen and delete others
-			screen = new Startscreen(this);
+			Startscreen.main(args1);
 			
 		}else if (mapOn == true){
 			//start Map and delete others
-			level = new Map(this);
+			Map.main(args1);
 		}else {
 			//start Highscores and delete others
-			scoreBoard = new Highscores(this, Scores);
+			//ScoreBoard.main(args1);
 		}
 	}
 }

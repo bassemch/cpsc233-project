@@ -15,7 +15,11 @@ public class Enemy extends Sprite {
 		super(x, y, w, h, "enemy", new Random().nextInt(2));
 		this.setLook();
 	}
-
+	public Enemy(int x, int y, int kind) {
+		super(x, y, 30, 10, "enemy", kind);
+		this.setSize();
+		this.setLook();
+	}
 	public void setLook() {
 		switch(this.getKind()) {
 		case(0): this.setFill(Color.DARKGREEN); //this.setImage("");
@@ -24,4 +28,16 @@ public class Enemy extends Sprite {
 			break;
 		}
     }
+	public void setSize() {
+		switch(this.getKind()) {
+		case(0):
+			super.setWidth(40.0);
+			super.setHeight(40.0);
+			break;
+		case(1):
+			this.setWidth(15.0);
+			this.setHeight(15.0);
+			break;
+		}
+	}
 }

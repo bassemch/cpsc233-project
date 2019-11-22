@@ -39,11 +39,16 @@ public class Map extends Application {
 	private boolean tripleshot;
 	private int maxShotNumber = 11;
 	
-//	public Map(Head game) {
+	// for different levels
+	private static int levelnumber = 1;
+	
+//	public Map(Head game, int levelnumber) {
 //		this.game = game;
+//		this.setLevel(levelnumber);
 //	}
 	
-    private Parent createContent() {
+
+	private Parent createContent() {
     	gameOverLabel = new Text("GAME OVER");
         gameOverLabel.setX(350);
         gameOverLabel.setY(400);
@@ -61,7 +66,14 @@ public class Map extends Application {
         root.getChildren().add(bottomline);
         root.setPrefSize(gameWidth, gameHeight);
         spawnPlayer();
-        spawnEnemies(); //later here different game difficulties can be started
+         //later here different game difficulties can be started
+        
+        switch(levelnumber) {
+        case(1): startLevel1();
+        	break;
+        case(2): startLevel2();
+        	break;
+        }
 
         //spawnWalls(); // implement this later
 
@@ -81,14 +93,14 @@ public class Map extends Application {
             	
             	if(aPlayer.getHealth() <= 0) {
             		root.getChildren().add(gameOverLabel);
-            		//pause(2000);
-            		//game.startScreen();
+            		pause(2000);
+            		Head.startScreen();
             		//game.scores.add();
             	}
             	if(EnemyList.size() == 0) {
             		root.getChildren().add(winLabel);
-            		//pause(2000);
-            		//game.startScreen();
+            		pause(2000);
+            		Head.startScreen();
             		//game.scores.add()
             		// also add score
             	}
@@ -164,8 +176,22 @@ public class Map extends Application {
 			}
 		}, 5000);
     }
-
-    //running game methods
+    // different levels
+    public void startLevel1() {
+        for (int i = 0; i < 10; i++) {
+            Enemy s = new Enemy(50 + i*55, 100, levelnumber-1);
+            EnemyList.add(s);
+            root.getChildren().add(s);
+        }
+    }
+    public void startLevel2() {
+        for (int i = 0; i < 10; i++) {
+            Enemy s = new Enemy(50 + i*55, 100, levelnumber-1);
+            EnemyList.add(s);
+            root.getChildren().add(s);
+        }
+    }
+    // running game methods
     public void updateEnemyPos() {
     	// if enemies moved right before they have to either move right again or move down, if one reached the right border
     	// if enemies moved left before they have to either move left again or move down, if one reached the left border
@@ -341,6 +367,9 @@ public class Map extends Application {
     		}
     	}
     }
+    public static void setLevel(int levelnumber) {
+		Map.levelnumber = levelnumber;
+	}
     public static void pause(int ms) {
         try {
             Thread.sleep(ms);
