@@ -8,13 +8,15 @@ public class Shot extends Sprite {
 	// defaultHeight = 10;
 	public Shot(int x, int y, int width, int heigth) {
 		super(x, y, width, heigth, "shot");
+		this.setLook();
 	}
 	public Shot(int x, int y) {
 		super(x, y, 5, 10, "shot");
+		this.setLook();
 	}
 	
 	public void setLook() {
 		// gives the object its look, by filling in an image
-		this.setFill(Color.BROWN);
+		this.setImage(new Image("/Shot.png"));
 	}
 }
